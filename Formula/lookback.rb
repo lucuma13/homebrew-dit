@@ -3,7 +3,7 @@ class Lookback < Formula
   homepage "https://github.com/lucuma13/lookback"
   version "v1.0"
   url "https://github.com/lucuma13/lookback/archive/refs/tags/v1.0.tar.gz"
-  sha256 "8abd7b5b759fb28599cf392e8cf1c2f9265e4b3be2c9526a8d52940670da46d0"
+  sha256 "a63a7c8546c5bde576cf77cca971a9ee79d8ab9963ffd0ce615f97a6ecd3e987"
   license "GPL-3.0"
 
   depends_on "xxhash"
