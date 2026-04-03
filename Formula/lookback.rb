@@ -6,6 +6,7 @@ class Lookback < Formula
   sha256 "6cbd204a424a3faf4686c8edf77943ebc20306803b2f7150f60d7a3d323da2ca"
   license "GPL-3.0"
 
+  # Dependencies
   depends_on "xxhash"
 
   def install
