@@ -3,7 +3,7 @@ class Heic2jpg < Formula
 	homepage "https://github.com/lucuma13/heic2jpg"
 	version "1.0"
 	url "https://github.com/lucuma13/heic2jpg/archive/refs/tags/1.0.tar.gz"
-	sha256 "60542c9b409e7068094a94a4acde68d1d5f7ab9dade0246ab0d0237eec2fd67f"
+	sha256 "669024bf250eed8c7cdc51e56dd2604673dd16b185098fd36e2a0a75c13a699a"
 	license "GPL-3.0"
 
 	# Dependencies
