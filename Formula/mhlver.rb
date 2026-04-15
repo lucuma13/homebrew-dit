@@ -5,7 +5,7 @@ class Mhlver < Formula
   homepage "https://github.com/lucuma13/mhlver"
   version "1.0"
   url "https://github.com/lucuma13/mhlver/archive/refs/tags/1.0.tar.gz"
-  sha256 ""
+  sha256 "cbca27f694d7ce76c5de50986ccc43c91c8e36d34a3b014a8eedee9dcf8508b3"
   license "GPL-3.0"
 
     # Dependencies
