@@ -15,7 +15,8 @@ class MhlTool < Formula
 
   def install
     # Rename the OS-specific binary to 'mhl' during installation
-    binary_name = OS.mac? ? "mhl-macos" : "mhl-linux"
+    binary_name = OS.mac? ? "mhl-tool-v1.31-macos" : "mhl-tool-v1.31-linux"
+    chmod 0755, binary_name
     bin.install binary_name => "mhl"
   end
 
