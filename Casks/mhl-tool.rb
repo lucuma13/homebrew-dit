@@ -10,8 +10,8 @@ cask "mhl-tool" do
   pkg "mhl-tool-v1.31-macos.pkg"
 
   # Uninstall instructions
-  uninstall pkgutil: "com.pomfort.mediaHashList.mhl.pkg,
-            delete:  "/usr/local/bin/mhl""
+  uninstall pkgutil: "com.pomfort.mediaHashList.mhl.pkg",
+            delete:  "/usr/local/bin/mhl"
 
   # Test install
   binary "/usr/local/bin/mhl"
