@@ -1,16 +1,16 @@
 class Mhlver < Formula
   include Language::Python::Virtualenv
 
-  desc "Another MHL tool to verify them all"
+  desc "An MHL tool to verify them all"
   homepage "https://github.com/lucuma13/mhlver"
   version "1.0"
   url "https://github.com/lucuma13/mhlver/archive/refs/tags/1.0.tar.gz"
   sha256 "cbca27f694d7ce76c5de50986ccc43c91c8e36d34a3b014a8eedee9dcf8508b3"
-  license "GPL-3.0"
+  license "MIT"
 
     # Dependencies
   depends_on "lucuma13/homebrew-dit/mhl-tool"
-  depends_on "python@3.14"
+  depends_on "python@3"
 
   # Resources for asc-mhl
   resource "ascmhl" do
@@ -95,15 +95,17 @@ class Mhlver < Formula
   end
 
 
-  def install
-    # 1. Create the virtualenv and install all resources into libexec
-    virtualenv_install_with_resources
-    
-    # 2. Install your shell script into the bin directory
+def install
+    # Create the virtual environment in libexec and install the resources
+    venv = virtualenv_create(libexec, "python3")
+    resources.each do |r|
+      venv.pip_install r
+    end
+
+    # Install the shell script into the cellar bin
     bin.install "mhlver.sh" => "mhlver"
-    
-    # 3. Create a wrapper so the script uses the libexec PATH
-    # This ensures 'ascmhl-debug' is found in your private Homebrew cellar
+
+    # Wrap the script to ensure it can find the ascmhl binaries in libexec
     bin.env_script_all_files libexec/"bin", PATH: "#{libexec}/bin:$PATH"
   end
 
