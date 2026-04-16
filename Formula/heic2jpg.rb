@@ -6,7 +6,7 @@ class Heic2jpg < Formula
   license "GPL-3.0-or-later"
 
   livecheck do
-    url "https://github.com/lucuma13/heic2jpg/releases/latest"
+    url :stable
     strategy :github_latest
   end
 
