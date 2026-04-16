@@ -23,7 +23,6 @@ class Mhlver < Formula
   uses_from_macos "libxml2"
   uses_from_macos "libxslt"
 
-
   # Resources for asc-mhl
   resource "ascmhl" do
     url "https://files.pythonhosted.org/packages/50/ef/b8393a28c5c83e5e31ad6e49e7af989cf6fc6d5015dc8b71c284f8b4cf88/ascmhl-1.2.tar.gz"
