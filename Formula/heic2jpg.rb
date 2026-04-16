@@ -1,23 +1,24 @@
 class Heic2jpg < Formula
-	desc "A quick way to convert HEIC images to JPG."
-	homepage "https://github.com/lucuma13/heic2jpg"
-	version "1.0"
-	url "https://github.com/lucuma13/heic2jpg/archive/refs/tags/1.0.tar.gz"
-	sha256 "669024bf250eed8c7cdc51e56dd2604673dd16b185098fd36e2a0a75c13a699a"
-	license "GPL-3.0"
+  desc "Quick way to convert HEIC images to JPG"
+  homepage "https://github.com/lucuma13/heic2jpg"
+  url "https://github.com/lucuma13/heic2jpg/archive/refs/tags/1.1.tar.gz"
+  sha256 "5195797b4d0000770af61a1b2ac3aebf7ebb3f6fe7422bbd20fc2f122922dcb3"
+  license "GPL-3.0-or-later"
 
-	# Dependencies
-	depends_on "imagemagick"
-	depends_on "libheif"
+  livecheck do
+    url "https://github.com/lucuma13/heic2jpg/releases/latest"
+    strategy :github_latest
+  end
 
-	def install
-		bin.install "heic2jpg.sh" => "heic2jpg"
-	end
+  depends_on "imagemagick"
+  depends_on "libheif"
 
-	test do
-		# Verify version
-	    system "#{bin}/heic2jpg", "--version"
-		# Verify that imagemagick was built with HEIC support (important for Linux users)
-		assert_match "heic", shell_output("#{Formula["imagemagick"].opt_bin}/magick identify -list format")
-	end
+  def install
+    bin.install "heic2jpg.sh" => "heic2jpg"
+  end
+
+  test do
+    system bin/"heic2jpg", "--version"
+    assert_match "heic", shell_output("#{Formula["imagemagick"].opt_bin}/magick identify -list format")
+  end
 end
