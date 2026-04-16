@@ -1,0 +1,26 @@
+name: Check for ASCMHL Updates
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  check-ascmhl:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PyPI for ascmhl
+        id: check
+        run: |
+          LATEST=$(curl -s https://pypi.org/pypi/ascmhl/json | jq -r .info.version)
+          echo "latest_version=$LATEST" >> $GITHUB_OUTPUT
+      
+      - name: Open Issue on mhlver Repo
+        uses: imjohnbo/issue-bot@v3
+        with:
+          repository: lucuma13/mhlver  # <--- Directs the issue to your main repo
+          title: "Dependency Update: ascmhl ${{ steps.check.outputs.latest_version }}"
+          body: "A new version of ascmhl is available on PyPI, please test it and update the resources in the Homebrew Tap."
+        env:
+          # You must use your Personal Access Token (PAT) here 
+          # because the default token cannot post to other repos.
+          GITHUB_TOKEN: ${{ secrets.HOMEBREW_BUMP_TOKEN }}

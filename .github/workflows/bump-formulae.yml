@@ -1,0 +1,18 @@
+name: Bump Formulae
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
+  workflow_dispatch: # Allows you to run it manually
+
+jobs:
+  bump:
+    runs-on: macos-latest
+    steps:
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Bump Formulae
+        uses: Homebrew/actions/bump-formulae@master
+        with:
+          token: ${{ secrets.HOMEBREW_BUMP_TOKEN }}
+          formulae: basicmeta lookback mhlver heic2jpg
