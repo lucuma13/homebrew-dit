@@ -1,8 +1,8 @@
 class Heic2jpg < Formula
   desc "Quick way to convert HEIC images to JPG"
   homepage "https://github.com/lucuma13/heic2jpg"
-  url "https://github.com/lucuma13/heic2jpg/archive/refs/tags/1.1.tar.gz"
-  sha256 "5195797b4d0000770af61a1b2ac3aebf7ebb3f6fe7422bbd20fc2f122922dcb3"
+  url "https://github.com/lucuma13/heic2jpg/archive/refs/tags/1.0.tar.gz"
+  sha256 "669024bf250eed8c7cdc51e56dd2604673dd16b185098fd36e2a0a75c13a699a"
   license "GPL-3.0-or-later"
 
   livecheck do
