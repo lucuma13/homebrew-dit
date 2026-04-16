@@ -17,8 +17,10 @@ jobs:
       - name: Open Issue on mhlver Repo
         uses: octokit/request-action@v2.x
         with:
+          token: ${{ secrets.HOMEBREW_BUMP_TOKEN }}
           route: POST /repos/lucuma13/mhlver/issues
-          title: "Dependency Update: ascmhl ${{ steps.check.outputs.latest_version }}"
-          body: "A new version of ascmhl is available on PyPI. Update the resources in the Homebrew Tap."
-        env:
-          GITHUB_TOKEN: ${{ secrets.HOMEBREW_BUMP_TOKEN }}
+          data: |
+            {
+              "title": "Dependency Update: ascmhl ${{ steps.check.outputs.latest_version }}",
+              "body": "A new version of ascmhl is available on PyPI. Run 'poet -f ascmhl' to update the formula resources."
+            }
