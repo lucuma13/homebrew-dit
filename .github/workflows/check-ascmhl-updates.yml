@@ -15,12 +15,12 @@ jobs:
           echo "latest_version=$LATEST" >> $GITHUB_OUTPUT
       
       - name: Open Issue on mhlver Repo
-        uses: octokit/request-action@v2.x
-        with:
-          token: ${{ secrets.HOMEBREW_BUMP_TOKEN }}
-          route: POST /repos/lucuma13/mhlver/issues
-          data: |
-            {
+        run: |
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.HOMEBREW_BUMP_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/lucuma13/mhlver/issues \
+            -d '{
               "title": "Dependency Update: ascmhl ${{ steps.check.outputs.latest_version }}",
-              "body": "A new version of ascmhl is available on PyPI. Run 'poet -f ascmhl' to update the formula resources."
-            }
+              "body": "A new version of ascmhl is available on PyPI. Run '\''poet -f ascmhl'\'' to update the formula resources."
+            }'
