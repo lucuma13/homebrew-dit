@@ -1,4 +1,4 @@
-name: Check for ASCMHL Updates
+name: Check for ASC-MHL Updates
 on:
   schedule:
     - cron: '0 0 * * *'
@@ -15,12 +15,10 @@ jobs:
           echo "latest_version=$LATEST" >> $GITHUB_OUTPUT
       
       - name: Open Issue on mhlver Repo
-        uses: imjohnbo/issue-bot@v3
+        uses: octokit/request-action@v2.x
         with:
-          repository: lucuma13/mhlver  # <--- Directs the issue to your main repo
+          route: POST /repos/lucuma13/mhlver/issues
           title: "Dependency Update: ascmhl ${{ steps.check.outputs.latest_version }}"
-          body: "A new version of ascmhl is available on PyPI, please test it and update the resources in the Homebrew Tap."
+          body: "A new version of ascmhl is available on PyPI. Update the resources in the Homebrew Tap."
         env:
-          # You must use your Personal Access Token (PAT) here 
-          # because the default token cannot post to other repos.
           GITHUB_TOKEN: ${{ secrets.HOMEBREW_BUMP_TOKEN }}
