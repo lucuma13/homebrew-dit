@@ -12,18 +12,13 @@ class Mhlver < Formula
     strategy :github_latest
   end
 
-  livecheck do
-    url "https://pypi.org/project/ascmhl/"
-    regex(%r{href=.*?/ascmhl[._-]v?(\d+(?:\.\d+)+)\.t}i)
-  end
-
   # Dependencies
   depends_on "lucuma13/homebrew-dit/mhl-tool"
   depends_on "python@3"
   uses_from_macos "libxml2"
   uses_from_macos "libxslt"
 
-  # Resources for asc-mhl
+  # Resources for asc-mhl 1.2
   resource "ascmhl" do
     url "https://files.pythonhosted.org/packages/50/ef/b8393a28c5c83e5e31ad6e49e7af989cf6fc6d5015dc8b71c284f8b4cf88/ascmhl-1.2.tar.gz"
     sha256 "21a6b90188d7b1a9047e9361bf2d472da1c70d62102fafbabe5572e7ee78be4d"
