@@ -1,14 +1,23 @@
 class Mhlver < Formula
   include Language::Python::Virtualenv
 
-  desc "An MHL tool to verify them all"
+  desc "One MHL tool to verify them all"
   homepage "https://github.com/lucuma13/mhlver"
-  version "1.0"
   url "https://github.com/lucuma13/mhlver/archive/refs/tags/1.0.tar.gz"
   sha256 "cbca27f694d7ce76c5de50986ccc43c91c8e36d34a3b014a8eedee9dcf8508b3"
   license "MIT"
 
-    # Dependencies
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
+
+  livecheck do
+    url "https://pypi.org/project/ascmhl/"
+    regex(%r{href=.*?/ascmhl[._-]v?(\d+(?:\.\d+)+)\.t}i)
+  end
+
+  # Dependencies
   depends_on "lucuma13/homebrew-dit/mhl-tool"
   depends_on "python@3"
 
@@ -88,13 +97,6 @@ class Mhlver < Formula
     sha256 "32120e378d32cd9714ad503c1d024619063ec28aad2248dc6672ad13edfa5110"
   end
 
-  # Livecheck asc-mhl updates
-  livecheck do
-    url "https://pypi.org/project/ascmhl/"
-    regex(%r{href=.*?/ascmhl[._-]v?(\d+(?:\.\d+)+)\.t}i)
-  end
-
-
 def install
     # Create the virtual environment in libexec and install the resources
     venv = virtualenv_create(libexec, "python3")
@@ -107,10 +109,9 @@ def install
 
     # Wrap the script to ensure it can find the ascmhl binaries in libexec
     bin.env_script_all_files libexec/"bin", PATH: "#{libexec}/bin:$PATH"
-  end
-
-  test do
-    system "#{bin}/mhlver", "--version"
-  end
 end
 
+  test do
+    system bin/"mhlver", "--version"
+  end
+end

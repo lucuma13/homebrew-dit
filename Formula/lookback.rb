@@ -1,10 +1,14 @@
 class Lookback < Formula
-  desc "A Bash utility to compare files and directories"
+  desc "Bash utility to compare files and directories"
   homepage "https://github.com/lucuma13/lookback"
-  version "1.0"
   url "https://github.com/lucuma13/lookback/archive/refs/tags/1.0.tar.gz"
   sha256 "6cbd204a424a3faf4686c8edf77943ebc20306803b2f7150f60d7a3d323da2ca"
-  license "GPL-3.0"
+  license "GPL-3.0-or-later"
+
+  livecheck do
+    url :stable
+    strategy :github_latest
+  end
 
   # Dependencies
   depends_on "xxhash"

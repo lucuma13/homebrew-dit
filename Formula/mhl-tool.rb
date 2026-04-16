@@ -1,7 +1,6 @@
 class MhlTool < Formula
-  desc "MHL Tool by Media Hash List"
+  desc "Reference implementation for creating and verifying MHL files"
   homepage "https://mediahashlist.org/mhl-tool/"
-  version "1.31"
   license "MIT"
 
   # Detect OS and fetch the corresponding raw binary
