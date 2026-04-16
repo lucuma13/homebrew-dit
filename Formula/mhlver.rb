@@ -20,6 +20,9 @@ class Mhlver < Formula
   # Dependencies
   depends_on "lucuma13/homebrew-dit/mhl-tool"
   depends_on "python@3"
+  uses_from_macos "libxml2"
+  uses_from_macos "libxslt"
+
 
   # Resources for asc-mhl
   resource "ascmhl" do
@@ -97,7 +100,7 @@ class Mhlver < Formula
     sha256 "32120e378d32cd9714ad503c1d024619063ec28aad2248dc6672ad13edfa5110"
   end
 
-def install
+  def install
     # Create the virtual environment in libexec and install the resources
     venv = virtualenv_create(libexec, "python3")
     resources.each do |r|
@@ -109,7 +112,7 @@ def install
 
     # Wrap the script to ensure it can find the ascmhl binaries in libexec
     bin.env_script_all_files libexec/"bin", PATH: "#{libexec}/bin:$PATH"
-end
+  end
 
   test do
     system bin/"mhlver", "--version"
