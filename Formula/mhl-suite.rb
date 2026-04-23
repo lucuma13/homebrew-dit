@@ -13,7 +13,7 @@ class MhlSuite < Formula
   end
 
   # Dependencies
-  depends_on "python@3.12"
+  depends_on "python@3.14"
   uses_from_macos "libxml2"
   uses_from_macos "libxslt"
 
@@ -93,20 +93,23 @@ class MhlSuite < Formula
     sha256 "32120e378d32cd9714ad503c1d024619063ec28aad2248dc6672ad13edfa5110"
   end
 
-  def install
+def install
     # Create the virtual environment
-    venv = virtualenv_create(libexec, "python3")
-
-    # Install the resources
+    venv = virtualenv_create(libexec, "python3.14")
+    
+    # 1. Install ALL third-party resources (ascmhl, xxhash, lxml, etc.)
     resources.each do |r|
       venv.pip_install r
     end
 
-    # Install mhl-suite and link its entry points (mhlver, simple-mhl) to bin/
-    venv.pip_install_and_link buildpath
+    # 2. Install the mhl-suite itself (your local source)
+    # We use pip_install without 'link' to avoid the automatic naming collision
+    venv.pip_install buildpath
 
-    # Wrap the script to ensure it can find the ascmhl binaries in libexec
-    bin.env_script_all_files libexec/"bin", PATH: "#{libexec}/bin:$PATH"
+    # 3. Manually link ONLY the binaries you want to expose to the user
+    # This bypasses the EEXIST error by giving you absolute control
+    bin.install_symlink libexec/"bin/mhlver"
+    bin.install_symlink libexec/"bin/simple-mhl"
   end
 
   test do
