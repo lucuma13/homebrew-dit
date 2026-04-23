@@ -1,10 +1,10 @@
-class Mhlver < Formula
+class MhlSuite < Formula
   include Language::Python::Virtualenv
 
-  desc "One MHL tool to verify them all"
-  homepage "https://github.com/lucuma13/mhlver"
-  url "https://github.com/lucuma13/mhlver/archive/refs/tags/1.0.tar.gz"
-  sha256 "cbca27f694d7ce76c5de50986ccc43c91c8e36d34a3b014a8eedee9dcf8508b3"
+  desc "essential toolkit for sealing and verifying MHL files"
+  homepage "https://github.com/lucuma13/mhl-suite"
+  url "https://github.com/lucuma13/mhl-suite/archive/refs/tags/1.1.0.tar.gz"
+  sha256 "0d3979e4e28cf53ac3f829caa599d4a5f099fba4f7fc3b4127424c2f8b33d8dd"
   license "MIT"
 
   livecheck do
@@ -13,12 +13,11 @@ class Mhlver < Formula
   end
 
   # Dependencies
-  depends_on "lucuma13/homebrew-dit/mhl-tool"
-  depends_on "python@3"
+  depends_on "python@3.12"
   uses_from_macos "libxml2"
   uses_from_macos "libxslt"
 
-  # Resources for asc-mhl 1.2
+  # Resources for asc-mhl 1.2 (they include the necessary resources for simple-mhl - lxml and xxhash):
   resource "ascmhl" do
     url "https://files.pythonhosted.org/packages/50/ef/b8393a28c5c83e5e31ad6e49e7af989cf6fc6d5015dc8b71c284f8b4cf88/ascmhl-1.2.tar.gz"
     sha256 "21a6b90188d7b1a9047e9361bf2d472da1c70d62102fafbabe5572e7ee78be4d"
@@ -95,20 +94,23 @@ class Mhlver < Formula
   end
 
   def install
-    # Create the virtual environment in libexec and install the resources
+    # Create the virtual environment
     venv = virtualenv_create(libexec, "python3")
+
+    # Install the resources
     resources.each do |r|
       venv.pip_install r
     end
 
-    # Install the shell script into the cellar bin
-    bin.install "mhlver.sh" => "mhlver"
+    # Install mhl-suite and link its entry points (mhlver, simple-mhl) to bin/
+    venv.pip_install_and_link buildpath
 
     # Wrap the script to ensure it can find the ascmhl binaries in libexec
     bin.env_script_all_files libexec/"bin", PATH: "#{libexec}/bin:$PATH"
   end
 
   test do
+    system bin/"simple-mhl", "--version"
     system bin/"mhlver", "--version"
   end
 end
