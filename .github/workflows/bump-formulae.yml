@@ -15,4 +15,4 @@ jobs:
         uses: Homebrew/actions/bump-formulae@master
         with:
           token: ${{ secrets.HOMEBREW_BUMP_TOKEN }}
-          formulae: basicmeta lookback mhlver heic2jpg
+          formulae: basicmeta lookback heic2jpg
