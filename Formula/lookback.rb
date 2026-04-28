@@ -1,8 +1,8 @@
 class Lookback < Formula
   desc "Bash utility to compare files and directories"
   homepage "https://github.com/lucuma13/lookback"
-  url "https://github.com/lucuma13/lookback/archive/refs/tags/1.0.tar.gz"
-  sha256 "6cbd204a424a3faf4686c8edf77943ebc20306803b2f7150f60d7a3d323da2ca"
+  url "https://github.com/lucuma13/lookback/archive/refs/tags/1.0.0.tar.gz"
+  sha256 "59d9e5c8ed0f19ae4ab16194945977bf4ac161e8c88f74c0dc458211385c5a69"
   license "GPL-3.0-or-later"
 
   livecheck do
