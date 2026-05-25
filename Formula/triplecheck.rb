@@ -16,12 +16,12 @@ class Triplecheck < Formula
 
   resource "blake3" do
     on_arm do
-      url "https://files.pythonhosted.org/packages/50/26/f7668be55c909678b001ecacff11ad7016cd9b4e9c7cc87b5971d638c5a9/blake3-1.0.8-cp313-cp313-macosx_11_0_arm64.whl"
-      sha256 "d17eb6382634b3a5bc0c0e0454d5265b0becaeeadb6801ed25150b39a999d0cc"
+      url "https://files.pythonhosted.org/packages/06/8e/8458c4285fbc5de76414f243e4e0fcab795d71a8b75324e14959aee699da/blake3-1.0.8-cp314-cp314-macosx_11_0_arm64.whl"
+      sha256 "c445eff665d21c3b3b44f864f849a2225b1164c08654beb23224a02f087b7ff1"
     end
     on_intel do
-      url "https://files.pythonhosted.org/packages/55/b8/11de9528c257f7f1633f957ccaff253b706838d22c5d2908e4735798ec01/blake3-1.0.8-cp313-cp313-macosx_10_12_x86_64.whl"
-      sha256 "46dc20976bd6c235959ef0246ec73420d1063c3da2839a9c87ca395cf1fd7943"
+      url "https://files.pythonhosted.org/packages/2e/2a/9f13ea01b03b1b4751a1cc2b6c1ef4b782e19433a59cf35b59cafb2a2696/blake3-1.0.8-cp314-cp314-macosx_10_12_x86_64.whl"
+      sha256 "2c33dac2c6112bc23f961a7ca305c7e34702c8177040eb98d0389d13a347b9e1"
     end
   end
 
@@ -31,7 +31,13 @@ class Triplecheck < Formula
   end
 
   def install
-    virtualenv_install_with_resources
+    venv = virtualenv_create(libexec, "python@3.14")
+    venv.pip_install resource("blake3")
+    resources.each do |r|
+      next if ["blake3"].include?(r.name)
+      venv.pip_install r
+    end
+    venv.pip_install buildpath
     bin.install_symlink libexec/"bin/triplecheck"
   end
 
