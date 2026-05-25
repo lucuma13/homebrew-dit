@@ -25,7 +25,10 @@ class Triplecheck < Formula
     sha256 "6cc4eefbb542a5d6ffd6d70ea9c502957c925e800f998c5630ecc809d6702bae"
   end
 
-  def install
+def install
+    # Prepend the Rust bin path to the PATH environment variable so pip/maturin can find cargo
+    ENV.prepend_path "PATH", Formula["rust"].opt_bin
+    
     virtualenv_install_with_resources
     bin.install_symlink libexec/"bin/triplecheck"
   end
