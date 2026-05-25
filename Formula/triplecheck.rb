@@ -12,7 +12,13 @@ class Triplecheck < Formula
     strategy :pypi
   end
 
+  depends_on "rust" => :build
   depends_on "python@3.13"
+
+  resource "blake3" do
+    url "https://files.pythonhosted.org/packages/75/aa/abcd75e9600987a0bc6cfe9b6b2ff3f0e2cb08c170addc6e76035b5c4cb3/blake3-1.0.8.tar.gz"
+    sha256 "513cc7f0f5a7c035812604c2c852a0c1468311345573de647e310aca4ab165ba"
+  end
 
   resource "xxhash" do
     url "https://files.pythonhosted.org/packages/24/2f/e183a1b407002f5af81822bee18b61cdb94b8670208ef34734d8d2b8ebe9/xxhash-3.7.0.tar.gz"
@@ -20,10 +26,7 @@ class Triplecheck < Formula
   end
 
   def install
-    venv = virtualenv_create(libexec, "python@3.13")
-    venv.pip_install "blake3==1.0.8"
-    venv.pip_install resources
-    venv.pip_install buildpath
+    virtualenv_install_with_resources
     bin.install_symlink libexec/"bin/triplecheck"
   end
 
