@@ -12,6 +12,7 @@ class Triplecheck < Formula
     strategy :pypi
   end
 
+  depends_on "rust" => :build
   depends_on "python@3.13"
 
   resource "blake3" do
