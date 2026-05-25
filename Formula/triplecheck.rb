@@ -12,7 +12,7 @@ class Triplecheck < Formula
     strategy :pypi
   end
 
-  depends_on "python@3"
+  depends_on "python@3.14"
 
   resource "blake3" do
     on_arm do
