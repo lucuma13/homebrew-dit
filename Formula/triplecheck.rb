@@ -12,7 +12,6 @@ class Triplecheck < Formula
     strategy :pypi
   end
 
-  depends_on "rust" => :build
   depends_on "python@3.13"
 
   resource "blake3" do
@@ -25,11 +24,13 @@ class Triplecheck < Formula
     sha256 "6cc4eefbb542a5d6ffd6d70ea9c502957c925e800f998c5630ecc809d6702bae"
   end
 
-  def install
-    virtualenv_install_with_resources
-    bin.install_symlink libexec/"bin/triplecheck"
-  end
-
+def install
+  venv = virtualenv_create(libexec, "python@3.13")
+  venv.pip_install "blake3==1.0.8"
+  venv.pip_install "xxhash==3.7.0"
+  venv.pip_install buildpath
+  bin.install_symlink libexec/"bin/triplecheck"
+end
   test do
     assert_match version.to_s, shell_output("#{bin}/triplecheck --version")
   end
