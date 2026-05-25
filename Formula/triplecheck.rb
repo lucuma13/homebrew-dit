@@ -14,23 +14,19 @@ class Triplecheck < Formula
 
   depends_on "python@3.13"
 
-  resource "blake3" do
-    url "https://files.pythonhosted.org/packages/75/aa/abcd75e9600987a0bc6cfe9b6b2ff3f0e2cb08c170addc6e76035b5c4cb3/blake3-1.0.8.tar.gz"
-    sha256 "513cc7f0f5a7c035812604c2c852a0c1468311345573de647e310aca4ab165ba"
-  end
-
   resource "xxhash" do
     url "https://files.pythonhosted.org/packages/24/2f/e183a1b407002f5af81822bee18b61cdb94b8670208ef34734d8d2b8ebe9/xxhash-3.7.0.tar.gz"
     sha256 "6cc4eefbb542a5d6ffd6d70ea9c502957c925e800f998c5630ecc809d6702bae"
   end
 
-def install
-  venv = virtualenv_create(libexec, "python@3.13")
-  venv.pip_install "blake3==1.0.8"
-  venv.pip_install "xxhash==3.7.0"
-  venv.pip_install buildpath
-  bin.install_symlink libexec/"bin/triplecheck"
-end
+  def install
+    venv = virtualenv_create(libexec, "python@3.13")
+    venv.pip_install "blake3==1.0.8"
+    venv.pip_install resources
+    venv.pip_install buildpath
+    bin.install_symlink libexec/"bin/triplecheck"
+  end
+
   test do
     assert_match version.to_s, shell_output("#{bin}/triplecheck --version")
   end
