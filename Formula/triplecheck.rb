@@ -31,13 +31,7 @@ class Triplecheck < Formula
   end
 
   def install
-    venv = virtualenv_create(libexec, "python@3.13")
-    venv.pip_install resource("blake3")
-    resources.each do |r|
-      next if ["blake3"].include?(r.name)
-      venv.pip_install r
-    end
-    venv.pip_install buildpath
+    virtualenv_install_with_resources
     bin.install_symlink libexec/"bin/triplecheck"
   end
 
