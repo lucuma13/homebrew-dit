@@ -12,11 +12,17 @@ class Triplecheck < Formula
     strategy :pypi
   end
 
-  depends_on "python@3.13"
+  depends_on "python@3"
 
   resource "blake3" do
-    url "https://files.pythonhosted.org/packages/75/aa/abcd75e9600987a0bc6cfe9b6b2ff3f0e2cb08c170addc6e76035b5c4cb3/blake3-1.0.8.tar.gz"
-    sha256 "513cc7f0f5a7c035812604c2c852a0c1468311345573de647e310aca4ab165ba"
+    on_arm do
+      url "https://files.pythonhosted.org/packages/50/26/f7668be55c909678b001ecacff11ad7016cd9b4e9c7cc87b5971d638c5a9/blake3-1.0.8-cp313-cp313-macosx_11_0_arm64.whl"
+      sha256 "d17eb6382634b3a5bc0c0e0454d5265b0becaeeadb6801ed25150b39a999d0cc"
+    end
+    on_intel do
+      url "https://files.pythonhosted.org/packages/55/b8/11de9528c257f7f1633f957ccaff253b706838d22c5d2908e4735798ec01/blake3-1.0.8-cp313-cp313-macosx_10_12_x86_64.whl"
+      sha256 "46dc20976bd6c235959ef0246ec73420d1063c3da2839a9c87ca395cf1fd7943"
+    end
   end
 
   resource "xxhash" do
