@@ -26,10 +26,19 @@ class Triplecheck < Formula
   end
 
 def install
-    # Prepend the Rust bin path to the PATH environment variable so pip/maturin can find cargo
+    # Explicitly add Rust to the PATH
     ENV.prepend_path "PATH", Formula["rust"].opt_bin
     
-    virtualenv_install_with_resources
+    # Use virtualenv_install_with_resources but pass additional pip flags
+    # to prevent it from trying to reach out to PyPI to resolve dependencies
+    # that we don't need or cannot build.
+    virtualenv_install_with_resources do
+      # --no-build-isolation is critical here: it tells pip to use 
+      # the environment we've already configured (with Rust) 
+      # rather than creating a new, isolated one that hangs.
+      system bin/"python", "-m", "pip", "install", ".", "--no-deps", "--no-build-isolation"
+    end
+    
     bin.install_symlink libexec/"bin/triplecheck"
   end
 
