@@ -1,0 +1,32 @@
+class Heic2jpg < Formula
+  include Language::Python::Virtualenv
+
+  desc "Fast HEIC to JPEG converter"
+  homepage "https://github.com/lucuma13/heic2jpg"
+  url "https://github.com/lucuma13/heic2jpg/archive/refs/tags/2.2.1.tar.gz"
+  sha256 "b571943fcaae71973a1d3805378af55684f5d35c51268e5a1a25135c88dbe7af"
+  license "MIT"
+
+  depends_on "pkgconf" => :build
+  depends_on "libheif"
+  depends_on "pillow"
+  depends_on "python@3.14"
+
+  resource "packaging" do
+    url "https://files.pythonhosted.org/packages/d7/f1/e7a6dd94a8d4a5626c03e4e99c87f241ba9e350cd9e6d75123f992427270/packaging-26.2.tar.gz"
+    sha256 "ff452ff5a3e828ce110190feff1178bb1f2ea2281fa2075aadb987c2fb221661"
+  end
+
+  resource "pillow-heif" do
+    url "https://files.pythonhosted.org/packages/e3/5f/4753689400e657ca5d984f5e897657dab12d91b62f1bb6a1e73487b59a97/pillow_heif-1.4.0.tar.gz"
+    sha256 "55a7c0cb5321538d1ca74037be54b48d147017735a766eb29bcca4761253a1f1"
+  end
+
+  def install
+    virtualenv_install_with_resources
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/heic2jpg --version")
+  end
+end
