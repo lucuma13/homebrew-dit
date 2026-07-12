@@ -3,8 +3,8 @@ class Heic2jpg < Formula
 
   desc "Fast HEIC to JPEG converter"
   homepage "https://github.com/lucuma13/heic2jpg"
-  url "https://github.com/lucuma13/heic2jpg/archive/refs/tags/2.2.1.tar.gz"
-  sha256 "b571943fcaae71973a1d3805378af55684f5d35c51268e5a1a25135c88dbe7af"
+  url "https://github.com/lucuma13/heic2jpg/archive/refs/tags/2.3.0.tar.gz"
+  sha256 "ce0384a285172fb387cfad7282ce6292eb43de58a6d13d9519a5eb8a81b2f39d"
   license "MIT"
 
   depends_on "pkgconf" => :build
