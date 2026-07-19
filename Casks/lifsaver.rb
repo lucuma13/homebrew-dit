@@ -1,6 +1,6 @@
 cask "lifsaver" do
   version "0.1.0-beta.1"
-  sha256 "057725c014206f4787ce25a068a5921cafb0128f144fb0746d05fa72c3b3681c"
+  sha256 "64fc02f6102fd53d747bd282585bfba947cf17dc49f18933482bca9db6f3e6b2"
 
   url "https://github.com/lucuma13/lifsaver/releases/download/#{version}/lifsaver-#{version}-macos-universal.zip"
   name "lifsaver"
